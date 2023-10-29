@@ -37,24 +37,32 @@ def handle_delete():
         print("Nothing found for deletion: ", key)
 
 
+def handle_load():
+    key = input("Enter a key to load: ")
+    if key in data:
+        clipboard.copy(data[key])
+        print("Copied to clipboard.")
+    else:
+        print("Nothing found to load for: ", key)
+
+
+def handle_save():
+    key = input("Enter a key to save: ")
+    data[key] = clipboard.paste()
+    save_items(FILE_NAME, data)
+    print('Item saved: ', data[key])
+
+
 if len(sys.argv) == 2:
     command = sys.argv[1]
     data = read_json(FILE_NAME)
 
     if command == "save":
-        key = input("Enter a key to save: ")
-        data[key] = clipboard.paste()
-        save_items(FILE_NAME, data)
-        print('Item saved: ', data[key])
+        handle_save()
     elif command == "delete":
         handle_delete()
     elif command == "load":
-        key = input("Enter a key to load: ")
-        if key in data:
-            clipboard.copy(data[key])
-            print("Copied to clipboard.")
-        else:
-            print("Nothing found to load for: ", key)
+        handle_load()
     elif command == "list":
         print("\n", "There are", len(data), "saved items: \n\n", data)
     else:
