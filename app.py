@@ -3,6 +3,12 @@ import clipboard
 import utils
 
 FILE_NAME = "clipboard.json"
+COMMANDS = {
+    "save": "save",
+    "delete": "delete",
+    "load": "load",
+    "list": "list",
+}
 
 
 def handle_delete():
@@ -33,13 +39,13 @@ if len(sys.argv) == 2:
     command = sys.argv[1]
     data = utils.read_json(FILE_NAME)
 
-    if command == "save":
+    if command == COMMANDS["save"]:
         handle_save()
-    elif command == "delete":
+    elif command == COMMANDS["delete"]:
         handle_delete()
-    elif command == "load":
+    elif command == COMMANDS["load"]:
         handle_load()
-    elif command == "list":
+    elif command == COMMANDS["list"]:
         print("\n", "There are", len(data), "saved items: \n\n", data)
     else:
         print("No such command. Type one of these commands: 'save', 'load', 'delete' or 'list'.")
